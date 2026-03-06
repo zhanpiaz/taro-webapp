@@ -15,7 +15,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px;
+            padding: 20px 15px;
             user-select: none;
         }
 
@@ -24,37 +24,70 @@
             background: linear-gradient(135deg, #FFD700, #FFA500);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin: 20px 0 5px;
+            margin: 10px 0 5px;
             text-align: center;
         }
         .subtitle {
             color: #b8a9c9;
             font-size: 14px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
         }
         .counter {
             color: #FFD700;
             font-size: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        .selected-display {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0 15px;
+            align-items: center;
+            justify-content: center;
+        }
+        .selected-slot {
+            width: 60px;
+            height: 90px;
+            border: 2px dashed rgba(255,215,0,0.3);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: rgba(255,215,0,0.3);
+            transition: all 0.3s;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .selected-slot.filled {
+            border: 2px solid #FFD700;
+            background: rgba(255,215,0,0.1);
+            color: #FFD700;
+            font-size: 11px;
+            padding: 4px;
+            text-align: center;
+        }
+        .slot-label {
+            font-size: 10px;
+            color: rgba(255,215,0,0.5);
         }
 
         .cards-grid {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 12px;
-            max-width: 360px;
+            gap: 10px;
+            max-width: 380px;
         }
 
         .card {
-            width: 90px;
-            height: 140px;
-            border-radius: 12px;
+            width: 85px;
+            height: 130px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.4s ease;
-            position: relative;
-            transform-style: preserve-3d;
+            perspective: 600px;
         }
 
         .card-inner {
@@ -63,7 +96,7 @@
             position: relative;
             transform-style: preserve-3d;
             transition: transform 0.6s ease;
-            border-radius: 12px;
+            border-radius: 10px;
         }
 
         .card.selected .card-inner {
@@ -75,62 +108,73 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
         }
 
         .card-front {
             background: linear-gradient(135deg, #1a0f3e, #2a1f5e);
-            border: 2px solid rgba(255, 215, 0, 0.4);
-            flex-direction: column;
-            gap: 5px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
         }
-        .card-front::before {
-            content: '✦';
-            font-size: 28px;
-            color: rgba(255, 215, 0, 0.6);
+        .card-front .star {
+            font-size: 24px;
+            color: rgba(255, 215, 0, 0.5);
         }
-        .card-front::after {
-            content: '?';
-            font-size: 16px;
-            color: rgba(255, 215, 0, 0.3);
+        .card-front .qmark {
+            font-size: 14px;
+            color: rgba(255, 215, 0, 0.2);
+            margin-top: 4px;
         }
 
         .card-back {
             background: linear-gradient(135deg, #2a1f5e, #4a2f8e);
             border: 2px solid #FFD700;
             transform: rotateY(180deg);
-            font-size: 36px;
+            padding: 8px;
+            text-align: center;
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        .card-back .card-emoji {
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+        .card-back .card-name {
+            font-size: 10px;
+            color: #FFD700;
+            line-height: 1.2;
         }
 
         .card:not(.selected):not(.disabled):active {
             transform: scale(0.95);
         }
-
         .card.selected {
-            transform: scale(1.05);
+            transform: translateY(-8px);
         }
-
         .card.disabled:not(.selected) {
-            opacity: 0.4;
+            opacity: 0.35;
             cursor: not-allowed;
         }
-
         .card.glow {
-            animation: glowPulse 1.5s ease-in-out infinite;
+            animation: glowPulse 2s ease-in-out infinite;
         }
+        .card:nth-child(2) { animation-delay: 0.3s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+        .card:nth-child(4) { animation-delay: 0.9s; }
+        .card:nth-child(5) { animation-delay: 1.2s; }
+        .card:nth-child(6) { animation-delay: 1.5s; }
+        .card:nth-child(7) { animation-delay: 1.8s; }
 
         @keyframes glowPulse {
-            0%, 100% { box-shadow: 0 0 5px rgba(255,215,0,0.2); }
-            50% { box-shadow: 0 0 20px rgba(255,215,0,0.5); }
+            0%, 100% { box-shadow: 0 0 5px rgba(255,215,0,0.1); }
+            50% { box-shadow: 0 0 15px rgba(255,215,0,0.3); }
         }
 
         .confirm-btn {
             width: 100%;
-            max-width: 360px;
+            max-width: 380px;
             padding: 16px;
             background: linear-gradient(135deg, #FFD700, #FFA500);
             border: none;
@@ -139,7 +183,7 @@
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 25px;
+            margin-top: 20px;
             transition: all 0.3s;
             display: none;
         }
@@ -147,43 +191,17 @@
             display: block;
             animation: fadeIn 0.5s ease;
         }
-        .confirm-btn:active {
-            transform: scale(0.97);
-        }
+        .confirm-btn:active { transform: scale(0.97); }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .selected-display {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-            min-height: 50px;
-            align-items: center;
-            justify-content: center;
-        }
-        .selected-slot {
-            width: 40px;
-            height: 40px;
-            border: 2px dashed rgba(255,215,0,0.3);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            transition: all 0.3s;
-        }
-        .selected-slot.filled {
-            border-color: #FFD700;
-            background: rgba(255,215,0,0.1);
-        }
-
         .done-screen {
             display: none;
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
         .done-screen.active { display: block; }
         .done-screen .emoji { font-size: 60px; margin-bottom: 20px; }
@@ -195,19 +213,36 @@
         .done-screen p {
             color: #b8a9c9;
             font-size: 15px;
+            line-height: 1.5;
         }
+        .done-cards {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .done-card {
+            background: linear-gradient(135deg, #2a1f5e, #4a2f8e);
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            width: 80px;
+        }
+        .done-card .emoji { font-size: 24px; margin-bottom: 4px; }
+        .done-card .name { font-size: 10px; color: #FFD700; }
     </style>
 </head>
 <body>
 
     <div id="pickScreen">
         <div class="title">🔮 Выберите 3 карты</div>
-        <div class="subtitle">Сосредоточьтесь на вашем вопросе и выберите карты интуитивно</div>
-        
+        <div class="subtitle">Сосредоточьтесь на вопросе и доверьтесь интуиции</div>
+
         <div class="selected-display">
-            <div class="selected-slot" id="slot1"></div>
-            <div class="selected-slot" id="slot2"></div>
-            <div class="selected-slot" id="slot3"></div>
+            <div class="selected-slot" id="slot1"><span class="slot-label">1</span></div>
+            <div class="selected-slot" id="slot2"><span class="slot-label">2</span></div>
+            <div class="selected-slot" id="slot3"><span class="slot-label">3</span></div>
         </div>
 
         <div class="counter" id="counter">Выбрано: 0 / 3</div>
@@ -222,7 +257,8 @@
     <div class="done-screen" id="doneScreen">
         <div class="emoji">🌟</div>
         <h2>Карты выбраны!</h2>
-        <p>Возвращайтесь в чат — бот уже готовит ваш расклад...</p>
+        <div class="done-cards" id="doneCards"></div>
+        <p>Возвращайтесь в чат —<br>бот уже готовит ваш расклад... ✨</p>
     </div>
 
     <script>
@@ -230,37 +266,77 @@
         tg.ready();
         tg.expand();
 
-        const cardEmojis = ['🌙', '⭐', '☀️', '🔥', '💧', '🌿', '⚡'];
+        const ALL_TAROT = [
+            { name: "Шут", emoji: "🃏" },
+            { name: "Маг", emoji: "🎩" },
+            { name: "Верховная Жрица", emoji: "🌙" },
+            { name: "Императрица", emoji: "👑" },
+            { name: "Император", emoji: "🏛" },
+            { name: "Иерофант", emoji: "📿" },
+            { name: "Влюблённые", emoji: "💕" },
+            { name: "Колесница", emoji: "⚡" },
+            { name: "Сила", emoji: "🦁" },
+            { name: "Отшельник", emoji: "🏔" },
+            { name: "Колесо Фортуны", emoji: "🎡" },
+            { name: "Справедливость", emoji: "⚖️" },
+            { name: "Повешенный", emoji: "🔮" },
+            { name: "Смерть", emoji: "🦋" },
+            { name: "Умеренность", emoji: "🏺" },
+            { name: "Дьявол", emoji: "🔥" },
+            { name: "Башня", emoji: "⚡" },
+            { name: "Звезда", emoji: "⭐" },
+            { name: "Луна", emoji: "🌙" },
+            { name: "Солнце", emoji: "☀️" },
+            { name: "Суд", emoji: "📯" },
+            { name: "Мир", emoji: "🌍" }
+        ];
+
         let selectedCards = [];
-        let cardData = [];
+        let cardElements = [];
+
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
 
         function init() {
             const grid = document.getElementById('cardsGrid');
-            
-            // Shuffle card emojis
-            const shuffled = [...cardEmojis].sort(() => Math.random() - 0.5);
-            
-            shuffled.forEach((emoji, i) => {
+            const shuffled = shuffle([...ALL_TAROT]);
+            const selected7 = shuffled.slice(0, 7);
+
+            selected7.forEach((tarot, i) => {
                 const card = document.createElement('div');
                 card.className = 'card glow';
                 card.dataset.index = i;
-                card.dataset.emoji = emoji;
+                card.dataset.name = tarot.name;
+                card.dataset.emoji = tarot.emoji;
                 card.innerHTML = `
                     <div class="card-inner">
-                        <div class="card-front"></div>
-                        <div class="card-back">${emoji}</div>
+                        <div class="card-front">
+                            <span class="star">✦</span>
+                            <span class="qmark">?</span>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-emoji">${tarot.emoji}</div>
+                            <div class="card-name">${tarot.name}</div>
+                        </div>
                     </div>
                 `;
-                card.onclick = () => toggleCard(card, i, emoji);
+                card.onclick = () => toggleCard(card, i, tarot);
                 grid.appendChild(card);
-                cardData.push({ index: i, emoji: emoji, element: card });
+                cardElements.push({ element: card, tarot: tarot, index: i });
             });
         }
 
-        function toggleCard(card, index, emoji) {
+        function toggleCard(card, index, tarot) {
+            if (card.classList.contains('disabled')) return;
+
             if (card.classList.contains('selected')) {
-                // Deselect
                 card.classList.remove('selected');
+                card.classList.add('glow');
                 selectedCards = selectedCards.filter(c => c.index !== index);
                 updateUI();
                 return;
@@ -270,7 +346,7 @@
 
             card.classList.remove('glow');
             card.classList.add('selected');
-            selectedCards.push({ index, emoji });
+            selectedCards.push({ index, name: tarot.name, emoji: tarot.emoji });
             updateUI();
         }
 
@@ -278,20 +354,18 @@
             const count = selectedCards.length;
             document.getElementById('counter').textContent = `Выбрано: ${count} / 3`;
 
-            // Update slots
             for (let i = 0; i < 3; i++) {
-                const slot = document.getElementById(`slot${i+1}`);
+                const slot = document.getElementById(`slot${i + 1}`);
                 if (selectedCards[i]) {
-                    slot.textContent = selectedCards[i].emoji;
+                    slot.innerHTML = `<span style="font-size:20px">${selectedCards[i].emoji}</span><span style="font-size:9px">${selectedCards[i].name}</span>`;
                     slot.classList.add('filled');
                 } else {
-                    slot.textContent = '';
+                    slot.innerHTML = `<span class="slot-label">${i + 1}</span>`;
                     slot.classList.remove('filled');
                 }
             }
 
-            // Disable unselected if 3 selected
-            cardData.forEach(c => {
+            cardElements.forEach(c => {
                 if (count >= 3 && !c.element.classList.contains('selected')) {
                     c.element.classList.add('disabled');
                 } else {
@@ -299,7 +373,6 @@
                 }
             });
 
-            // Show confirm button
             const btn = document.getElementById('confirmBtn');
             if (count === 3) {
                 btn.classList.add('visible');
@@ -309,22 +382,23 @@
         }
 
         function confirmCards() {
-            const picks = selectedCards.map(c => c.emoji).join(',');
-            
-            // Send data to bot
+            const cardNames = selectedCards.map(c => c.name);
+
             tg.sendData(JSON.stringify({
                 action: 'cards_selected',
-                cards: selectedCards.map(c => c.emoji)
+                cards: cardNames
             }));
 
             // Show done screen
+            const doneCards = document.getElementById('doneCards');
+            doneCards.innerHTML = selectedCards.map(c =>
+                `<div class="done-card"><div class="emoji">${c.emoji}</div><div class="name">${c.name}</div></div>`
+            ).join('');
+
             document.getElementById('pickScreen').style.display = 'none';
             document.getElementById('doneScreen').classList.add('active');
 
-            // Close after 2 seconds
-            setTimeout(() => {
-                tg.close();
-            }, 2000);
+            setTimeout(() => { tg.close(); }, 2500);
         }
 
         init();
